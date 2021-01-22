@@ -16,6 +16,7 @@
 #include <argos3/plugins/simulator/entities/quadrotor_entity.h>
 #include <argos3/plugins/simulator/entities/rab_equipped_entity.h>
 #include <argos3/plugins/simulator/entities/battery_equipped_entity.h>
+#include <argos3/plugins/simulator/entities/proximity_sensor_equipped_entity.h>
 
 namespace argos {
 
@@ -29,6 +30,10 @@ namespace argos {
    static const Real BODY_RADIUS    = BODY_DIAGONAL / 2.0f;
    static const Real BODY_ELEVATION = HEIGHT - BODY_HEIGHT;
    static const Real RAB_ELEVATION  = (BODY_ELEVATION + BODY_HEIGHT) / 2.0f;
+   static const Real PROXIMITY_SENSOR_RING_ELEVATION       = 0.06f;
+   static const Real PROXIMITY_SENSOR_RING_RADIUS          = BODY_RADIUS;
+   static const CRadians PROXIMITY_SENSOR_RING_START_ANGLE = CRadians((ARGOS_PI / 12.0f) * 0.5f);
+   static const Real PROXIMITY_SENSOR_RING_RANGE           = 0.1f;
 
    /****************************************/
    /****************************************/
@@ -40,7 +45,8 @@ namespace argos {
       m_pcQuadRotorEntity(NULL),
       m_pcRABEquippedEntity(NULL),
       m_pcPerspectiveCameraEquippedEntity(NULL),
-      m_pcBatteryEquippedEntity(NULL) {
+      m_pcBatteryEquippedEntity(NULL),
+      m_pcProximitySensorEquippedEntity(NULL) {
    }
 
    /****************************************/
@@ -61,7 +67,8 @@ namespace argos {
       m_pcQuadRotorEntity(NULL),
       m_pcRABEquippedEntity(NULL),
       m_pcPerspectiveCameraEquippedEntity(NULL),
-      m_pcBatteryEquippedEntity(NULL) {
+      m_pcBatteryEquippedEntity(NULL),
+      m_pcProximitySensorEquippedEntity(NULL) {
       try {
          /*
           * Create and init components
@@ -106,6 +113,17 @@ namespace argos {
          /* Battery equipped entity */
          m_pcBatteryEquippedEntity = new CBatteryEquippedEntity(this, "battery_0", str_bat_model);
          AddComponent(*m_pcBatteryEquippedEntity);
+         /* Proximity sensor equipped entity */
+         m_pcProximitySensorEquippedEntity =
+            new CProximitySensorEquippedEntity(this, "proximity_0");
+         AddComponent(*m_pcProximitySensorEquippedEntity);
+         m_pcProximitySensorEquippedEntity->AddSensorRing(
+            CVector3(0.0f, 0.0f, PROXIMITY_SENSOR_RING_ELEVATION),
+            PROXIMITY_SENSOR_RING_RADIUS,
+            PROXIMITY_SENSOR_RING_START_ANGLE,
+            PROXIMITY_SENSOR_RING_RANGE,
+            24,
+            m_pcEmbodiedEntity->GetOriginAnchor());
          /* Controllable entity
             It must be the last one, for actuators/sensors to link to composing entities correctly */
          m_pcControllableEntity = new CControllableEntity(this, "controller_0");

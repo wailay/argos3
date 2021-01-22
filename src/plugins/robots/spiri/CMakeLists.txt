@@ -2,21 +2,37 @@
 # Spiri headers
 #
 # argos3/plugins/robots/spiri/simulator
+set(ARGOS3_HEADERS_PLUGINS_ROBOTS_SPIRI_CONTROLINTERFACE
+  control_interface/ci_spiri_proximity_sensor.h
+  control_interface/ci_spiri_distance_scanner_sensor.h
+  control_interface/ci_spiri_distance_scanner_actuator.h)
 if(ARGOS_BUILD_FOR_SIMULATOR)
   set(ARGOS3_HEADERS_PLUGINS_ROBOTS_SPIRI_SIMULATOR
     simulator/spiri_entity.h
-    simulator/pointmass3d_spiri_model.h)
+    simulator/pointmass3d_spiri_model.h
+    simulator/spiri_distance_scanner_default_actuator.h
+    simulator/spiri_distance_scanner_equipped_entity.h
+    simulator/spiri_proximity_default_sensor.h
+    )
 endif(ARGOS_BUILD_FOR_SIMULATOR)
 
 #
 # Spiri sources
 #
+set(ARGOS3_SOURCES_PLUGINS_ROBOTS_SPIRI
+  ${ARGOS3_HEADERS_PLUGINS_ROBOTS_SPIRI_CONTROLINTERFACE}
+  control_interface/ci_spiri_proximity_sensor.cpp
+  control_interface/ci_spiri_distance_scanner_sensor.cpp
+  control_interface/ci_spiri_distance_scanner_actuator.cpp)
 if(ARGOS_BUILD_FOR_SIMULATOR)
   set(ARGOS3_SOURCES_PLUGINS_ROBOTS_SPIRI
     ${ARGOS3_SOURCES_PLUGINS_ROBOTS_SPIRI}
     ${ARGOS3_HEADERS_PLUGINS_ROBOTS_SPIRI_SIMULATOR}
     simulator/spiri_entity.cpp
-    simulator/pointmass3d_spiri_model.cpp)
+    simulator/pointmass3d_spiri_model.cpp
+    simulator/spiri_distance_scanner_default_actuator.cpp
+    simulator/spiri_distance_scanner_equipped_entity.cpp
+    simulator/spiri_proximity_default_sensor.cpp)
   # Compile the graphical visualization only if the necessary libraries have been found
   if(ARGOS_COMPILE_QTOPENGL)
     set(ARGOS3_HEADERS_PLUGINS_ROBOTS_SPIRI_SIMULATOR
