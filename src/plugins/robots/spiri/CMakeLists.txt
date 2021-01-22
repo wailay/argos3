@@ -12,7 +12,7 @@ if(ARGOS_BUILD_FOR_SIMULATOR)
     simulator/pointmass3d_spiri_model.h
     simulator/spiri_distance_scanner_default_actuator.h
     simulator/spiri_distance_scanner_equipped_entity.h
-    simulator/spiri_proximity_default_sensor.h
+    simulator/spiri_distance_scanner_rotzonly_sensor.h
     )
 endif(ARGOS_BUILD_FOR_SIMULATOR)
 
@@ -32,7 +32,8 @@ if(ARGOS_BUILD_FOR_SIMULATOR)
     simulator/pointmass3d_spiri_model.cpp
     simulator/spiri_distance_scanner_default_actuator.cpp
     simulator/spiri_distance_scanner_equipped_entity.cpp
-    simulator/spiri_proximity_default_sensor.cpp)
+    simulator/spiri_distance_scanner_rotzonly_sensor.cpp
+    )
   # Compile the graphical visualization only if the necessary libraries have been found
   if(ARGOS_COMPILE_QTOPENGL)
     set(ARGOS3_HEADERS_PLUGINS_ROBOTS_SPIRI_SIMULATOR

@@ -16,7 +16,7 @@
 #include <argos3/plugins/simulator/entities/quadrotor_entity.h>
 #include <argos3/plugins/simulator/entities/rab_equipped_entity.h>
 #include <argos3/plugins/simulator/entities/battery_equipped_entity.h>
-#include <argos3/plugins/simulator/entities/proximity_sensor_equipped_entity.h>
+#include "spiri_distance_scanner_equipped_entity.h"
 
 namespace argos {
 
@@ -46,7 +46,7 @@ namespace argos {
       m_pcRABEquippedEntity(NULL),
       m_pcPerspectiveCameraEquippedEntity(NULL),
       m_pcBatteryEquippedEntity(NULL),
-      m_pcProximitySensorEquippedEntity(NULL) {
+      m_pcSpiriDistanceScannerEquippedEntity(NULL) {
    }
 
    /****************************************/
@@ -68,7 +68,7 @@ namespace argos {
       m_pcRABEquippedEntity(NULL),
       m_pcPerspectiveCameraEquippedEntity(NULL),
       m_pcBatteryEquippedEntity(NULL),
-      m_pcProximitySensorEquippedEntity(NULL) {
+      m_pcSpiriDistanceScannerEquippedEntity(NULL) {
       try {
          /*
           * Create and init components
@@ -113,17 +113,10 @@ namespace argos {
          /* Battery equipped entity */
          m_pcBatteryEquippedEntity = new CBatteryEquippedEntity(this, "battery_0", str_bat_model);
          AddComponent(*m_pcBatteryEquippedEntity);
-         /* Proximity sensor equipped entity */
-         m_pcProximitySensorEquippedEntity =
-            new CProximitySensorEquippedEntity(this, "proximity_0");
-         AddComponent(*m_pcProximitySensorEquippedEntity);
-         m_pcProximitySensorEquippedEntity->AddSensorRing(
-            CVector3(0.0f, 0.0f, PROXIMITY_SENSOR_RING_ELEVATION),
-            PROXIMITY_SENSOR_RING_RADIUS,
-            PROXIMITY_SENSOR_RING_START_ANGLE,
-            PROXIMITY_SENSOR_RING_RANGE,
-            24,
-            m_pcEmbodiedEntity->GetOriginAnchor());
+         /* Distance sensor equipped entity */
+         m_pcSpiriDistanceScannerEquippedEntity =
+            new CSpiriDistanceScannerEquippedEntity(this, "distance_scanner_0");
+         AddComponent(*m_pcSpiriDistanceScannerEquippedEntity);
          /* Controllable entity
             It must be the last one, for actuators/sensors to link to composing entities correctly */
          m_pcControllableEntity = new CControllableEntity(this, "controller_0");
@@ -198,6 +191,10 @@ namespace argos {
          if(NodeExists(t_tree, "battery"))
             m_pcBatteryEquippedEntity->Init(GetNode(t_tree, "battery"));
          AddComponent(*m_pcBatteryEquippedEntity);
+         /* Distance sensor equipped entity */
+         m_pcSpiriDistanceScannerEquippedEntity =
+            new CSpiriDistanceScannerEquippedEntity(this, "distance_scanner_0");
+         AddComponent(*m_pcSpiriDistanceScannerEquippedEntity);
          /* Controllable entity
             It must be the last one, for actuators/sensors to link to composing entities correctly */
          m_pcControllableEntity = new CControllableEntity(this);
