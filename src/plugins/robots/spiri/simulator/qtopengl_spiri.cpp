@@ -19,7 +19,7 @@ namespace argos {
    public:
       void ApplyTo(CQTOpenGLWidget& c_visualization,
                    CSpiriEntity& c_entity) {
-         static CQTOpenGLObjModel m_cSpiriModel("spiri.obj");
+         static CQTOpenGLObjModel m_cSpiriModel("cf2.obj");
          c_visualization.DrawRays(c_entity.GetControllableEntity());
          c_visualization.DrawEntity(c_entity.GetEmbodiedEntity());
          m_cSpiriModel.Draw();

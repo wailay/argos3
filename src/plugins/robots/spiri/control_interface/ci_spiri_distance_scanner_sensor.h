@@ -8,13 +8,6 @@
  * precise (1cm accuracy) distance measurements of the objects around the
  * robot. As such, it can be seen as a better proximity sensor, in that,
  * besides accuracy, it also provides higher range.
- *
- * The distance scanner is composed of to pairs of sensors:
- * - short range sensors, that can measure distances in the range [4cm;30cm]
- *   and correspond to readings 0 and 2;
- * - long range sensors, that can measure distances in the range [20cm;150cm]
- *   and correspond to readings 1 and 3.
- *
  * Furthermore, the sensor can rotate. It can be rotated to a specific angle,
  * or it can keep rotating at a desired constant speed. Refer to the distance
  * scanner actuator to control this behavior. When the scanner is still, its

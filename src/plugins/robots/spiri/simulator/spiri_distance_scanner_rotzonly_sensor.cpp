@@ -16,15 +16,17 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   static const Real FOOTBOT_RADIUS           = 0.085036758f;
+   static const Real BODY_SIDE      = 0.10f;
+   static const Real BODY_DIAGONAL  = BODY_SIDE * ::sqrt(2);
+   static const Real BODY_RADIUS    = BODY_DIAGONAL / 2.0f;
 
    static const Real SHORT_RANGE_MIN_DISTANCE = 0.0f;
-   static const Real SHORT_RANGE_RAY_START    = FOOTBOT_RADIUS;
-   static const Real SHORT_RANGE_RAY_END      = FOOTBOT_RADIUS + 0.26f;
+   static const Real SHORT_RANGE_RAY_START    = BODY_RADIUS;
+   static const Real SHORT_RANGE_RAY_END      = BODY_RADIUS + 2.0f;
 
-   static const Real LONG_RANGE_MIN_DISTANCE  = 0.12f;
-   static const Real LONG_RANGE_RAY_START     = FOOTBOT_RADIUS;
-   static const Real LONG_RANGE_RAY_END       = FOOTBOT_RADIUS + 1.42f;
+   static const Real LONG_RANGE_MIN_DISTANCE  = 0.0f;
+   static const Real LONG_RANGE_RAY_START     = BODY_RADIUS;
+   static const Real LONG_RANGE_RAY_END       = BODY_RADIUS + 2.0f;
 
    static const Real SENSOR_ELEVATION         = 0.123199866f;
 

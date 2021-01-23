@@ -3,7 +3,6 @@
 #
 # argos3/plugins/robots/spiri/simulator
 set(ARGOS3_HEADERS_PLUGINS_ROBOTS_SPIRI_CONTROLINTERFACE
-  control_interface/ci_spiri_proximity_sensor.h
   control_interface/ci_spiri_distance_scanner_sensor.h
   control_interface/ci_spiri_distance_scanner_actuator.h)
 if(ARGOS_BUILD_FOR_SIMULATOR)
@@ -21,7 +20,6 @@ endif(ARGOS_BUILD_FOR_SIMULATOR)
 #
 set(ARGOS3_SOURCES_PLUGINS_ROBOTS_SPIRI
   ${ARGOS3_HEADERS_PLUGINS_ROBOTS_SPIRI_CONTROLINTERFACE}
-  control_interface/ci_spiri_proximity_sensor.cpp
   control_interface/ci_spiri_distance_scanner_sensor.cpp
   control_interface/ci_spiri_distance_scanner_actuator.cpp)
 if(ARGOS_BUILD_FOR_SIMULATOR)

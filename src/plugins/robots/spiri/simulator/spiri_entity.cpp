@@ -116,6 +116,8 @@ namespace argos {
          /* Distance sensor equipped entity */
          m_pcSpiriDistanceScannerEquippedEntity =
             new CSpiriDistanceScannerEquippedEntity(this, "distance_scanner_0");
+         m_pcSpiriDistanceScannerEquippedEntity->Enable();
+         m_pcSpiriDistanceScannerEquippedEntity->SetMode(CSpiriDistanceScannerEquippedEntity::EMode::MODE_POSITION_CONTROL);
          AddComponent(*m_pcSpiriDistanceScannerEquippedEntity);
          /* Controllable entity
             It must be the last one, for actuators/sensors to link to composing entities correctly */
@@ -194,6 +196,8 @@ namespace argos {
          /* Distance sensor equipped entity */
          m_pcSpiriDistanceScannerEquippedEntity =
             new CSpiriDistanceScannerEquippedEntity(this, "distance_scanner_0");
+         m_pcSpiriDistanceScannerEquippedEntity->Enable();
+         m_pcSpiriDistanceScannerEquippedEntity->SetMode(CSpiriDistanceScannerEquippedEntity::EMode::MODE_POSITION_CONTROL);
          AddComponent(*m_pcSpiriDistanceScannerEquippedEntity);
          /* Controllable entity
             It must be the last one, for actuators/sensors to link to composing entities correctly */
