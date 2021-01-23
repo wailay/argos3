@@ -20,6 +20,10 @@ if(ARGOS_BUILD_FOR_SIMULATOR OR ARGOS_BUILD_FOR STREQUAL "crazyflie")
   add_subdirectory(crazyflie)
 endif(ARGOS_BUILD_FOR_SIMULATOR OR ARGOS_BUILD_FOR STREQUAL "crazyflie")
 
+if(ARGOS_BUILD_FOR_SIMULATOR OR ARGOS_BUILD_FOR STREQUAL "spiri")
+  add_subdirectory(crazyflie)
+endif(ARGOS_BUILD_FOR_SIMULATOR OR ARGOS_BUILD_FOR STREQUAL "spiri")
+
 if(ARGOS_BUILD_FOR_SIMULATOR)
   add_subdirectory(prototype)
 endif(ARGOS_BUILD_FOR_SIMULATOR)
