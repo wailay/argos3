@@ -28,7 +28,7 @@ namespace argos {
    static const Real LONG_RANGE_RAY_START     = BODY_RADIUS;
    static const Real LONG_RANGE_RAY_END       = BODY_RADIUS + 2.0f;
 
-   static const Real SENSOR_ELEVATION         = 0.123199866f;
+   static const Real SENSOR_ELEVATION         = 0.0f;
 
    /****************************************/
    /****************************************/
