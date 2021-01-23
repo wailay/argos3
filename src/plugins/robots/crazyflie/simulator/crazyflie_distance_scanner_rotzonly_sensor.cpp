@@ -1,11 +1,11 @@
 /**
- * @file <argos3/plugins/robots/spiri/simulator/spiri_distance_scanner_rotzonly_sensor.cpp>
+ * @file <argos3/plugins/robots/crazyflie/simulator/crazyflie_distance_scanner_rotzonly_sensor.cpp>
  *
  * @author Carlo Pinciroli - <ilpincy@gmail.com>
  * @author Pierre-Yves Lajoie - <lajoie.py@gmail.com>
  */
 
-#include "spiri_distance_scanner_rotzonly_sensor.h"
+#include "crazyflie_distance_scanner_rotzonly_sensor.h"
 #include <argos3/core/simulator/entity/composable_entity.h>
 #include <argos3/core/simulator/entity/controllable_entity.h>
 #include <argos3/core/simulator/simulator.h>
@@ -33,7 +33,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   CSpiriDistanceScannerRotZOnlySensor::CSpiriDistanceScannerRotZOnlySensor() :
+   CCrazyflieDistanceScannerRotZOnlySensor::CCrazyflieDistanceScannerRotZOnlySensor() :
       m_pcRNG(NULL),
       m_bAddNoise(false),
       m_cSpace(CSimulator::GetInstance().GetSpace()),
@@ -42,9 +42,9 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   void CSpiriDistanceScannerRotZOnlySensor::Init(TConfigurationNode& t_tree) {
+   void CCrazyflieDistanceScannerRotZOnlySensor::Init(TConfigurationNode& t_tree) {
       try {
-         CCI_SpiriDistanceScannerSensor::Init(t_tree);
+         CCI_CrazyflieDistanceScannerSensor::Init(t_tree);
          /* Show rays? */
          GetNodeAttributeOrDefault(t_tree, "show_rays", m_bShowRays, m_bShowRays);
          /* Noise range */
@@ -55,32 +55,32 @@ namespace argos {
          }
       }
       catch(CARGoSException& ex) {
-         THROW_ARGOSEXCEPTION_NESTED("Initialization error in spiri distance scanner rot_z_only sensor.", ex);
+         THROW_ARGOSEXCEPTION_NESTED("Initialization error in crazyflie distance scanner rot_z_only sensor.", ex);
       }
    }
 
    /****************************************/
    /****************************************/
 
-   void CSpiriDistanceScannerRotZOnlySensor::SetRobot(CComposableEntity& c_entity) {
+   void CCrazyflieDistanceScannerRotZOnlySensor::SetRobot(CComposableEntity& c_entity) {
       m_pcEmbodiedEntity = &(c_entity.GetComponent<CEmbodiedEntity>("body"));
       m_pcControllableEntity = &(c_entity.GetComponent<CControllableEntity>("controller"));
-      m_pcDistScanEntity = &(c_entity.GetComponent<CSpiriDistanceScannerEquippedEntity>("distance_scanner"));
+      m_pcDistScanEntity = &(c_entity.GetComponent<CCrazyflieDistanceScannerEquippedEntity>("distance_scanner"));
       m_pcDistScanEntity->Enable();
    }
 
    /****************************************/
    /****************************************/
 
-   void CSpiriDistanceScannerRotZOnlySensor::Update() {
+   void CCrazyflieDistanceScannerRotZOnlySensor::Update() {
       /* Clear the maps */
       m_tReadingsMap.clear();
       m_tShortReadingsMap.clear();
       m_tLongReadingsMap.clear();
       /* Perform calculations only if the sensor is on */
-      if(m_pcDistScanEntity->GetMode() != CSpiriDistanceScannerEquippedEntity::MODE_OFF) {
+      if(m_pcDistScanEntity->GetMode() != CCrazyflieDistanceScannerEquippedEntity::MODE_OFF) {
          /* Update the readings wrt to device mode */
-         if(m_pcDistScanEntity->GetMode() == CSpiriDistanceScannerEquippedEntity::MODE_POSITION_CONTROL) {
+         if(m_pcDistScanEntity->GetMode() == CCrazyflieDistanceScannerEquippedEntity::MODE_POSITION_CONTROL) {
             /* Sensor blocked in a position */
             /* Recalculate the rays */
             CalculateRaysNotRotating();
@@ -104,7 +104,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   void CSpiriDistanceScannerRotZOnlySensor::Reset() {
+   void CCrazyflieDistanceScannerRotZOnlySensor::Reset() {
       /* Clear the maps */
       m_tReadingsMap.clear();
       m_tShortReadingsMap.clear();
@@ -116,7 +116,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   void CSpiriDistanceScannerRotZOnlySensor::UpdateNotRotating() {
+   void CCrazyflieDistanceScannerRotZOnlySensor::UpdateNotRotating() {
       /* Short range [0] */
       CRadians cAngle = m_cLastDistScanRotation;
       cAngle.SignedNormalize();
@@ -160,7 +160,7 @@ namespace argos {
    ADD_READING(RAYS,MAP,4,MINDIST)              \
    ADD_READING(RAYS,MAP,5,MINDIST)
 
-   void CSpiriDistanceScannerRotZOnlySensor::UpdateRotating() {
+   void CCrazyflieDistanceScannerRotZOnlySensor::UpdateRotating() {
       CRadians cInterSensorSpan = (m_pcDistScanEntity->GetRotation() - m_cLastDistScanRotation).UnsignedNormalize() / 6.0f;
       CRadians cStartAngle = m_cLastDistScanRotation;
       /* Short range [0] */
@@ -196,7 +196,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   Real CSpiriDistanceScannerRotZOnlySensor::CalculateReadingForRay(const CRay3& c_ray,
+   Real CCrazyflieDistanceScannerRotZOnlySensor::CalculateReadingForRay(const CRay3& c_ray,
                                                                       Real f_min_distance) {
       /* Get the closest intersection */
       SEmbodiedEntityIntersectionItem sIntersection;
@@ -274,19 +274,19 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   void CSpiriDistanceScannerRotZOnlySensor::CalculateRaysNotRotating() {
-      /* We make the assumption that the spiri is rotated only around Z */
-      /* Get the spiri orientation */
+   void CCrazyflieDistanceScannerRotZOnlySensor::CalculateRaysNotRotating() {
+      /* We make the assumption that the crazyflie is rotated only around Z */
+      /* Get the crazyflie orientation */
       CRadians cTmp1, cTmp2, cOrientationZ;
       m_pcEmbodiedEntity->GetOriginAnchor().Orientation.ToEulerAngles(cOrientationZ, cTmp1, cTmp2);
       /* Sum the distance scanner orientation */
       cOrientationZ += m_pcDistScanEntity->GetRotation();
       /* Calculate the 2D vector representing this rotation */
       CVector2 cAbsoluteOrientation(1.0, cOrientationZ);
-      /* The short range sensors are oriented along the spiri local X */
+      /* The short range sensors are oriented along the crazyflie local X */
       m_cDirection = CVector3::X;
       CALCULATE_SHORT_RANGE_RAY(cAbsoluteOrientation, 0);
-      /* The short range sensors are oriented along the spiri local Y */
+      /* The short range sensors are oriented along the crazyflie local Y */
       m_cDirection = CVector3::Y;
       CALCULATE_LONG_RANGE_RAY(cAbsoluteOrientation, 0);
    }
@@ -294,9 +294,9 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   void CSpiriDistanceScannerRotZOnlySensor::CalculateRaysRotating() {
-      /* We make the assumption that the spiri is rotated only around Z */
-      /* Get the spiri orientation */
+   void CCrazyflieDistanceScannerRotZOnlySensor::CalculateRaysRotating() {
+      /* We make the assumption that the crazyflie is rotated only around Z */
+      /* Get the crazyflie orientation */
       CRadians cTmp1, cTmp2, cOrientationZ;
       m_pcEmbodiedEntity->GetOriginAnchor().Orientation.ToEulerAngles(cOrientationZ, cTmp1, cTmp2);
       /* Sum the distance scanner orientation */
@@ -305,7 +305,7 @@ namespace argos {
       CVector2 cAbsoluteOrientation(1.0, cOrientationZ);
       /* The sensor is rotating, so calculate the span between each successive ray */
       CVector2 cInterSensorSpan(1.0f, (m_pcDistScanEntity->GetRotation() - m_cLastDistScanRotation).UnsignedNormalize() / 6.0f);
-      /* The short range sensors are oriented along the spiri local X */
+      /* The short range sensors are oriented along the crazyflie local X */
       m_cDirection = CVector3::X;
       CALCULATE_SHORT_RANGE_RAY(cAbsoluteOrientation, 0);
       CALCULATE_SHORT_RANGE_RAY(cInterSensorSpan, 1);
@@ -313,7 +313,7 @@ namespace argos {
       CALCULATE_SHORT_RANGE_RAY(cInterSensorSpan, 3);
       CALCULATE_SHORT_RANGE_RAY(cInterSensorSpan, 4);
       CALCULATE_SHORT_RANGE_RAY(cInterSensorSpan, 5);
-      /* The long range sensors are oriented along the spiri local Y */
+      /* The long range sensors are oriented along the crazyflie local Y */
       m_cDirection = CVector3::Y;
       CALCULATE_LONG_RANGE_RAY(cAbsoluteOrientation, 0);
       CALCULATE_LONG_RANGE_RAY(cInterSensorSpan, 1);
@@ -326,17 +326,17 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   REGISTER_SENSOR(CSpiriDistanceScannerRotZOnlySensor,
-                   "spiri_distance_scanner", "rot_z_only",
+   REGISTER_SENSOR(CCrazyflieDistanceScannerRotZOnlySensor,
+                   "crazyflie_distance_scanner", "rot_z_only",
                    "Carlo Pinciroli [ilpincy@gmail.com]",
                    "1.0",
-                   "The spiri distance scanner sensor (optimized for 2D).",
-                   "This sensor accesses the spiri distance scanner sensor. For a complete\n"
+                   "The crazyflie distance scanner sensor (optimized for 2D).",
+                   "This sensor accesses the crazyflie distance scanner sensor. For a complete\n"
                    "description of its usage, refer to the common interface.\n"
                    "In this implementation, the readings are calculated under the assumption that\n"
-                   "the spiri is always parallel to the XY plane, i.e., it rotates only around\n"
+                   "the crazyflie is always parallel to the XY plane, i.e., it rotates only around\n"
                    "the Z axis. This implementation is faster than a 3D one and should be used\n"
-                   "only when the assumption about the spiri rotation holds.\n\n"
+                   "only when the assumption about the crazyflie rotation holds.\n\n"
                    "REQUIRED XML CONFIGURATION\n\n"
                    "  <controllers>\n"
                    "    ...\n"
@@ -344,7 +344,7 @@ namespace argos {
                    "      ...\n"
                    "      <sensors>\n"
                    "        ...\n"
-                   "        <spiri_distance_scanner implementation=\"rot_z_only\" />\n"
+                   "        <crazyflie_distance_scanner implementation=\"rot_z_only\" />\n"
                    "        ...\n"
                    "      </sensors>\n"
                    "      ...\n"
@@ -365,7 +365,7 @@ namespace argos {
                    "      ...\n"
                    "      <sensors>\n"
                    "        ...\n"
-                   "        <spiri_distance_scanner implementation=\"rot_z_only\"\n"
+                   "        <crazyflie_distance_scanner implementation=\"rot_z_only\"\n"
                    "                                  show_rays=\"true\" />\n"
                    "        ...\n"
                    "      </sensors>\n"

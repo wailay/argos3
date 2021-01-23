@@ -1,10 +1,10 @@
 /**
- * @file <argos3/plugins/robots/foot-bot/simulator/pointmass3d_spiri_model.h>
+ * @file <argos3/plugins/robots/foot-bot/simulator/pointmass3d_crazyflie_model.h>
  *
  * @author Carlo Pinciroli - <cpinciro@ulb.ac.be>
  */
 
-#include "pointmass3d_spiri_model.h"
+#include "pointmass3d_crazyflie_model.h"
 #include <argos3/core/utility/logging/argos_log.h>
 #include <argos3/core/utility/math/cylinder.h>
 #include <argos3/core/simulator/simulator.h>
@@ -31,11 +31,11 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   CPointMass3DSpiriModel::CPointMass3DSpiriModel(CPointMass3DEngine& c_engine,
-                                                  CSpiriEntity& c_spiri) :
+   CPointMass3DCrazyflieModel::CPointMass3DCrazyflieModel(CPointMass3DEngine& c_engine,
+                                                  CCrazyflieEntity& c_crazyflie) :
       CPointMass3DQuadRotorModel(c_engine,
-                                 c_spiri.GetEmbodiedEntity(),
-                                 c_spiri.GetQuadRotorEntity(),
+                                 c_crazyflie.GetEmbodiedEntity(),
+                                 c_crazyflie.GetQuadRotorEntity(),
                                  BODY_HEIGHT,
                                  BODY_RADIUS,
                                  BODY_MASS,
@@ -50,15 +50,15 @@ namespace argos {
                                  ROT_K_D) {
       /* Register anchor update methods */
       RegisterAnchorMethod(GetEmbodiedEntity().GetAnchor("rab"),
-                           &CPointMass3DSpiriModel::UpdateRABAnchor);
+                           &CPointMass3DCrazyflieModel::UpdateRABAnchor);
       RegisterAnchorMethod(GetEmbodiedEntity().GetAnchor("camera"),
-                           &CPointMass3DSpiriModel::UpdateCameraAnchor);
+                           &CPointMass3DCrazyflieModel::UpdateCameraAnchor);
    }
 
    /****************************************/
    /****************************************/
 
-   void CPointMass3DSpiriModel::UpdateRABAnchor(SAnchor& s_anchor) {
+   void CPointMass3DCrazyflieModel::UpdateRABAnchor(SAnchor& s_anchor) {
       s_anchor.Orientation = GetEmbodiedEntity().GetOriginAnchor().Orientation;
       s_anchor.Position = s_anchor.OffsetPosition;
       s_anchor.Position += GetEmbodiedEntity().GetOriginAnchor().Position;
@@ -67,7 +67,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   void CPointMass3DSpiriModel::UpdateCameraAnchor(SAnchor& s_anchor) {
+   void CPointMass3DCrazyflieModel::UpdateCameraAnchor(SAnchor& s_anchor) {
       s_anchor.Orientation = GetEmbodiedEntity().GetOriginAnchor().Orientation;
       s_anchor.Orientation *= s_anchor.OffsetOrientation;
       s_anchor.Position = s_anchor.OffsetPosition;
@@ -78,7 +78,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   REGISTER_STANDARD_POINTMASS3D_OPERATIONS_ON_ENTITY(CSpiriEntity, CPointMass3DSpiriModel);
+   REGISTER_STANDARD_POINTMASS3D_OPERATIONS_ON_ENTITY(CCrazyflieEntity, CPointMass3DCrazyflieModel);
 
    /****************************************/
    /****************************************/

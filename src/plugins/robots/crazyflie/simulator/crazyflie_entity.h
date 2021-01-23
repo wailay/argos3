@@ -1,28 +1,28 @@
 /**
- * @file <argos3/plugins/robots/spiri/simulator/spiri_entity.h>
+ * @file <argos3/plugins/robots/crazyflie/simulator/crazyflie_entity.h>
  *
  * @author Carlo Pinciroli - <ilpincy@gmail.com>
  */
 
-#ifndef SPIRI_ENTITY_H
-#define SPIRI_ENTITY_H
+#ifndef CRAZYFLIE_ENTITY_H
+#define CRAZYFLIE_ENTITY_H
 
 namespace argos {
    class CControllableEntity;
    class CEmbodiedEntity;
-   class CSpiriEntity;
+   class CCrazyflieEntity;
    class CQuadRotorEntity;
    class CRABEquippedEntity;
    class CPerspectiveCameraEquippedEntity;
    class CBatteryEquippedEntity;
-   class CSpiriDistanceScannerEquippedEntity;
+   class CCrazyflieDistanceScannerEquippedEntity;
 }
 
 #include <argos3/core/simulator/entity/composable_entity.h>
 
 namespace argos {
 
-   class CSpiriEntity : public CComposableEntity {
+   class CCrazyflieEntity : public CComposableEntity {
 
    public:
 
@@ -30,9 +30,9 @@ namespace argos {
 
    public:
 
-      CSpiriEntity();
+      CCrazyflieEntity();
 
-      CSpiriEntity(const std::string& str_id,
+      CCrazyflieEntity(const std::string& str_id,
                    const std::string& str_controller_id,
                    const CVector3& c_position = CVector3(),
                    const CQuaternion& c_orientation = CQuaternion(),
@@ -69,12 +69,12 @@ namespace argos {
           return *m_pcBatteryEquippedEntity;
       }
 
-      inline CSpiriDistanceScannerEquippedEntity& GetSpiriDistanceScannerEquippedEntity() {
-         return *m_pcSpiriDistanceScannerEquippedEntity;
+      inline CCrazyflieDistanceScannerEquippedEntity& GetCrazyflieDistanceScannerEquippedEntity() {
+         return *m_pcCrazyflieDistanceScannerEquippedEntity;
       }
 
       virtual std::string GetTypeDescription() const {
-         return "spiri";
+         return "crazyflie";
       }
 
    private:
@@ -85,7 +85,7 @@ namespace argos {
       CRABEquippedEntity*               m_pcRABEquippedEntity;
       CPerspectiveCameraEquippedEntity* m_pcPerspectiveCameraEquippedEntity;
       CBatteryEquippedEntity*           m_pcBatteryEquippedEntity;
-      CSpiriDistanceScannerEquippedEntity* m_pcSpiriDistanceScannerEquippedEntity;
+      CCrazyflieDistanceScannerEquippedEntity* m_pcCrazyflieDistanceScannerEquippedEntity;
    };
 
 }

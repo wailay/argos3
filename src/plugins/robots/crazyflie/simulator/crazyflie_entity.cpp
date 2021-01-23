@@ -1,10 +1,10 @@
 /**
- * @file <argos3/plugins/robots/spiri/simulator/spiri_entity.cpp>
+ * @file <argos3/plugins/robots/crazyflie/simulator/crazyflie_entity.cpp>
  *
  * @author Carlo Pinciroli - <ilpincy@gmail.com>
  */
 
-#include "spiri_entity.h"
+#include "crazyflie_entity.h"
 
 #include <argos3/core/simulator/space/space.h>
 #include <argos3/core/simulator/entity/controllable_entity.h>
@@ -16,7 +16,7 @@
 #include <argos3/plugins/simulator/entities/quadrotor_entity.h>
 #include <argos3/plugins/simulator/entities/rab_equipped_entity.h>
 #include <argos3/plugins/simulator/entities/battery_equipped_entity.h>
-#include "spiri_distance_scanner_equipped_entity.h"
+#include "crazyflie_distance_scanner_equipped_entity.h"
 
 namespace argos {
 
@@ -38,7 +38,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   CSpiriEntity::CSpiriEntity() :
+   CCrazyflieEntity::CCrazyflieEntity() :
       CComposableEntity(NULL),
       m_pcControllableEntity(NULL),
       m_pcEmbodiedEntity(NULL),
@@ -46,13 +46,13 @@ namespace argos {
       m_pcRABEquippedEntity(NULL),
       m_pcPerspectiveCameraEquippedEntity(NULL),
       m_pcBatteryEquippedEntity(NULL),
-      m_pcSpiriDistanceScannerEquippedEntity(NULL) {
+      m_pcCrazyflieDistanceScannerEquippedEntity(NULL) {
    }
 
    /****************************************/
    /****************************************/
 
-   CSpiriEntity::CSpiriEntity(const std::string& str_id,
+   CCrazyflieEntity::CCrazyflieEntity(const std::string& str_id,
                               const std::string& str_controller_id,
                               const CVector3& c_position,
                               const CQuaternion& c_orientation,
@@ -68,7 +68,7 @@ namespace argos {
       m_pcRABEquippedEntity(NULL),
       m_pcPerspectiveCameraEquippedEntity(NULL),
       m_pcBatteryEquippedEntity(NULL),
-      m_pcSpiriDistanceScannerEquippedEntity(NULL) {
+      m_pcCrazyflieDistanceScannerEquippedEntity(NULL) {
       try {
          /*
           * Create and init components
@@ -114,11 +114,11 @@ namespace argos {
          m_pcBatteryEquippedEntity = new CBatteryEquippedEntity(this, "battery_0", str_bat_model);
          AddComponent(*m_pcBatteryEquippedEntity);
          /* Distance sensor equipped entity */
-         m_pcSpiriDistanceScannerEquippedEntity =
-            new CSpiriDistanceScannerEquippedEntity(this, "distance_scanner_0");
-         m_pcSpiriDistanceScannerEquippedEntity->Enable();
-         m_pcSpiriDistanceScannerEquippedEntity->SetMode(CSpiriDistanceScannerEquippedEntity::EMode::MODE_POSITION_CONTROL);
-         AddComponent(*m_pcSpiriDistanceScannerEquippedEntity);
+         m_pcCrazyflieDistanceScannerEquippedEntity =
+            new CCrazyflieDistanceScannerEquippedEntity(this, "distance_scanner_0");
+         m_pcCrazyflieDistanceScannerEquippedEntity->Enable();
+         m_pcCrazyflieDistanceScannerEquippedEntity->SetMode(CCrazyflieDistanceScannerEquippedEntity::EMode::MODE_POSITION_CONTROL);
+         AddComponent(*m_pcCrazyflieDistanceScannerEquippedEntity);
          /* Controllable entity
             It must be the last one, for actuators/sensors to link to composing entities correctly */
          m_pcControllableEntity = new CControllableEntity(this, "controller_0");
@@ -135,7 +135,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   void CSpiriEntity::Init(TConfigurationNode& t_tree) {
+   void CCrazyflieEntity::Init(TConfigurationNode& t_tree) {
       try {
          /*
           * Init parent
@@ -194,11 +194,11 @@ namespace argos {
             m_pcBatteryEquippedEntity->Init(GetNode(t_tree, "battery"));
          AddComponent(*m_pcBatteryEquippedEntity);
          /* Distance sensor equipped entity */
-         m_pcSpiriDistanceScannerEquippedEntity =
-            new CSpiriDistanceScannerEquippedEntity(this, "distance_scanner_0");
-         m_pcSpiriDistanceScannerEquippedEntity->Enable();
-         m_pcSpiriDistanceScannerEquippedEntity->SetMode(CSpiriDistanceScannerEquippedEntity::EMode::MODE_POSITION_CONTROL);
-         AddComponent(*m_pcSpiriDistanceScannerEquippedEntity);
+         m_pcCrazyflieDistanceScannerEquippedEntity =
+            new CCrazyflieDistanceScannerEquippedEntity(this, "distance_scanner_0");
+         m_pcCrazyflieDistanceScannerEquippedEntity->Enable();
+         m_pcCrazyflieDistanceScannerEquippedEntity->SetMode(CCrazyflieDistanceScannerEquippedEntity::EMode::MODE_POSITION_CONTROL);
+         AddComponent(*m_pcCrazyflieDistanceScannerEquippedEntity);
          /* Controllable entity
             It must be the last one, for actuators/sensors to link to composing entities correctly */
          m_pcControllableEntity = new CControllableEntity(this);
@@ -215,7 +215,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   void CSpiriEntity::Reset() {
+   void CCrazyflieEntity::Reset() {
       /* Reset all components */
       CComposableEntity::Reset();
       /* Update components */
@@ -225,32 +225,32 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   REGISTER_ENTITY(CSpiriEntity,
-                   "spiri",
+   REGISTER_ENTITY(CCrazyflieEntity,
+                   "crazyflie",
                    "Carlo Pinciroli [ilpincy@gmail.com]",
                    "1.0",
-                   "The spiri robot, developed by Pleiades Robotics.",
-                   "The spiri is a quad-rotor developed by Pleiades Robotics. It is a\n"
+                   "The crazyflie robot, developed by Pleiades Robotics.",
+                   "The crazyflie is a quad-rotor developed by Pleiades Robotics. It is a\n"
                    "fully autonomous robot with a rich set of sensors and actuators. For more\n"
                    "information, refer to the dedicated web page (http://www.pleaides.ca/).\n\n"
                    "REQUIRED XML CONFIGURATION\n\n"
                    "  <arena ...>\n"
                    "    ...\n"
-                   "    <spiri id=\"sp0\">\n"
+                   "    <crazyflie id=\"sp0\">\n"
                    "      <body position=\"0.4,2.3,0.25\" orientation=\"45,0,0\" />\n"
                    "      <controller config=\"mycntrl\" />\n"
-                   "    </spiri>\n"
+                   "    </crazyflie>\n"
                    "    ...\n"
                    "  </arena>\n\n"
                    "The 'id' attribute is necessary and must be unique among the entities. If two\n"
                    "entities share the same id, initialization aborts.\n"
                    "The 'body/position' attribute specifies the position of the bottom point of the\n"
-                   "spiri in the arena. When the robot is untranslated and unrotated, the\n"
+                   "crazyflie in the arena. When the robot is untranslated and unrotated, the\n"
                    "bottom point is in the origin and it is defined as the middle point between\n"
                    "the two wheels on the XY plane and the lowest point of the robot on the Z\n"
                    "axis, that is the point where the wheels touch the floor. The attribute values\n"
                    "are in the X,Y,Z order.\n"
-                   "The 'body/orientation' attribute specifies the orientation of the spiri. All\n"
+                   "The 'body/orientation' attribute specifies the orientation of the crazyflie. All\n"
                    "rotations are performed with respect to the bottom point. The order of the\n"
                    "angles is Z,Y,X, which means that the first number corresponds to the rotation\n"
                    "around the Z axis, the second around Y and the last around X. This reflects\n"
@@ -258,29 +258,29 @@ namespace argos {
                    "that order. Angles are expressed in degrees. When the robot is unrotated, it\n"
                    "is oriented along the X axis.\n"
                    "The 'controller/config' attribute is used to assign a controller to the\n"
-                   "spiri. The value of the attribute must be set to the id of a previously\n"
+                   "crazyflie. The value of the attribute must be set to the id of a previously\n"
                    "defined controller. Controllers are defined in the <controllers> XML subtree.\n\n"
                    "OPTIONAL XML CONFIGURATION\n\n"
                    "You can set the emission range of the range-and-bearing system. By default, a\n"
-                   "message sent by an spiri can be received up to 3m. By using the 'rab_range'\n"
+                   "message sent by an crazyflie can be received up to 3m. By using the 'rab_range'\n"
                    "attribute, you can change it to, i.e., 4m as follows:\n\n"
                    "  <arena ...>\n"
                    "    ...\n"
-                   "    <spiri id=\"sp0\" rab_range=\"4\">\n"
+                   "    <crazyflie id=\"sp0\" rab_range=\"4\">\n"
                    "      <body position=\"0.4,2.3,0.25\" orientation=\"45,0,0\" />\n"
                    "      <controller config=\"mycntrl\" />\n"
-                   "    </spiri>\n"
+                   "    </crazyflie>\n"
                    "    ...\n"
                    "  </arena>\n\n"
                    "You can also set the data sent at each time step through the range-and-bearing\n"
-                   "system. By default, a message sent by a spiri is 10 bytes long. By using the\n"
+                   "system. By default, a message sent by a crazyflie is 10 bytes long. By using the\n"
                    "'rab_data_size' attribute, you can change it to, i.e., 20 bytes as follows:\n\n"
                    "  <arena ...>\n"
                    "    ...\n"
-                   "    <spiri id=\"sp0\" rab_data_size=\"20\">\n"
+                   "    <crazyflie id=\"sp0\" rab_data_size=\"20\">\n"
                    "      <body position=\"0.4,2.3,0.25\" orientation=\"45,0,0\" />\n"
                    "      <controller config=\"mycntrl\" />\n"
-                   "    </spiri>\n"
+                   "    </crazyflie>\n"
                    "    ...\n"
                    "  </arena>\n\n"
                    "You can also configure the battery of the robot. By default, the battery never\n"
@@ -292,32 +292,32 @@ namespace argos {
                    "argos3/src/plugins/simulator/entities/battery_equipped_entity.cpp.\n\n"
                    "  <arena ...>\n"
                    "    ...\n"
-                   "    <spiri id=\"sp0\"\n"
+                   "    <crazyflie id=\"sp0\"\n"
                    "      <body position=\"0.4,2.3,0.25\" orientation=\"45,0,0\" />\n"
                    "      <controller config=\"mycntrl\" />\n"
                    "      <battery model=\"time\" factor=\"1e-5\"/>\n"
-                   "    </spiri>\n"
+                   "    </crazyflie>\n"
                    "    ...\n"
                    "  </arena>\n\n"
                    "  <arena ...>\n"
                    "    ...\n"
-                   "    <spiri id=\"sp0\"\n"
+                   "    <crazyflie id=\"sp0\"\n"
                    "      <body position=\"0.4,2.3,0.25\" orientation=\"45,0,0\" />\n"
                    "      <controller config=\"mycntrl\" />\n"
                    "      <battery model=\"motion\" pos_factor=\"1e-3\"\n"
                    "                              orient_factor=\"1e-3\"/>\n"
-                   "    </spiri>\n"
+                   "    </crazyflie>\n"
                    "    ...\n"
                    "  </arena>\n\n"
                    "  <arena ...>\n"
                    "    ...\n"
-                   "    <spiri id=\"sp0\"\n"
+                   "    <crazyflie id=\"sp0\"\n"
                    "      <body position=\"0.4,2.3,0.25\" orientation=\"45,0,0\" />\n"
                    "      <controller config=\"mycntrl\" />\n"
                    "      <battery model=\"time_motion\" time_factor=\"1e-5\"\n"
                    "                                   pos_factor=\"1e-3\"\n"
                    "                                   orient_factor=\"1e-3\"/>\n"
-                   "    </spiri>\n"
+                   "    </crazyflie>\n"
                    "    ...\n"
                    "  </arena>\n\n"
                    ,
@@ -327,7 +327,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   REGISTER_STANDARD_SPACE_OPERATIONS_ON_COMPOSABLE(CSpiriEntity);
+   REGISTER_STANDARD_SPACE_OPERATIONS_ON_COMPOSABLE(CCrazyflieEntity);
 
    /****************************************/
    /****************************************/

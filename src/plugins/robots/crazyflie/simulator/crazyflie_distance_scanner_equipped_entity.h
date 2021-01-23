@@ -1,14 +1,14 @@
 /**
- * @file <argos3/plugins/robots/spiri/simulator/spiri_distance_scanner_equipped_entity.h>
+ * @file <argos3/plugins/robots/crazyflie/simulator/crazyflie_distance_scanner_equipped_entity.h>
  *
  * @author Carlo Pinciroli - <ilpincy@gmail.com>
  */
 
-#ifndef SPIRI_DISTANCE_SCANNER_EQUIPPED_ENTITY_H
-#define SPIRI_DISTANCE_SCANNER_EQUIPPED_ENTITY_H
+#ifndef CRAZYFLIE_DISTANCE_SCANNER_EQUIPPED_ENTITY_H
+#define CRAZYFLIE_DISTANCE_SCANNER_EQUIPPED_ENTITY_H
 
 namespace argos {
-   class CSpiriDistanceScannerEquippedEntity;
+   class CCrazyflieDistanceScannerEquippedEntity;
 }
 
 #include <argos3/core/simulator/entity/entity.h>
@@ -16,7 +16,7 @@ namespace argos {
 
 namespace argos {
 
-   class CSpiriDistanceScannerEquippedEntity : public CEntity {
+   class CCrazyflieDistanceScannerEquippedEntity : public CEntity {
 
    public:
 
@@ -30,9 +30,9 @@ namespace argos {
 
    public:
 
-      CSpiriDistanceScannerEquippedEntity(CComposableEntity* pc_parent);
+      CCrazyflieDistanceScannerEquippedEntity(CComposableEntity* pc_parent);
 
-      CSpiriDistanceScannerEquippedEntity(CComposableEntity* pc_parent,
+      CCrazyflieDistanceScannerEquippedEntity(CComposableEntity* pc_parent,
                                             const std::string& str_id);
 
       virtual void Reset();

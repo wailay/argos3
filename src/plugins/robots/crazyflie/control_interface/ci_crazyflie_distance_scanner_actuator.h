@@ -1,5 +1,5 @@
 /**
- * @file <argos3/plugins/robots/spiri/control_interface/ci_spiri_distance_scanner_actuator.h>
+ * @file <argos3/plugins/robots/crazyflie/control_interface/ci_crazyflie_distance_scanner_actuator.h>
  *
  * @brief This file provides the definition of the distance scanner sensor.
  *
@@ -39,12 +39,12 @@
  * @author Carlo Pinciroli - <ilpincy@gmail.com>
  */
 
-#ifndef CCI_SPIRI_DISTANCE_SCANNER_ACTUATOR_H
-#define CCI_SPIRI_DISTANCE_SCANNER_ACTUATOR_H
+#ifndef CCI_CRAZYFLIE_DISTANCE_SCANNER_ACTUATOR_H
+#define CCI_CRAZYFLIE_DISTANCE_SCANNER_ACTUATOR_H
 
 /* To avoid dependency problems when including */
 namespace argos {
-   class CCI_SpiriDistanceScannerActuator;
+   class CCI_CrazyflieDistanceScannerActuator;
 };
 
 #include <argos3/core/control_interface/ci_actuator.h>
@@ -52,14 +52,14 @@ namespace argos {
 
 namespace argos {
 
-   class CCI_SpiriDistanceScannerActuator: virtual public CCI_Actuator {
+   class CCI_CrazyflieDistanceScannerActuator: virtual public CCI_Actuator {
 
    public:
 
        /**
         * Destructor.
         */
-      virtual ~CCI_SpiriDistanceScannerActuator() {}
+      virtual ~CCI_CrazyflieDistanceScannerActuator() {}
 
       /**
        *

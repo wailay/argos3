@@ -1,21 +1,21 @@
 /**
- * @file <argos3/plugins/robots/spiri/simulator/spiri_distance_scanner_rotzonly_sensor.h>
+ * @file <argos3/plugins/robots/crazyflie/simulator/crazyflie_distance_scanner_rotzonly_sensor.h>
  *
  * @author Carlo Pinciroli - <ilpincy@gmail.com>
  * @author Pierre-Yves Lajoie - <lajoie.py@gmail.com>
  */
 
-#ifndef SPIRI_DISTANCE_SCANNER_SENSOR_H
-#define SPIRI_DISTANCE_SCANNER_SENSOR_H
+#ifndef CRAZYFLIE_DISTANCE_SCANNER_SENSOR_H
+#define CRAZYFLIE_DISTANCE_SCANNER_SENSOR_H
 
 namespace argos {
-   class CSpiriDistanceScannerRotZOnlySensor;
+   class CCrazyflieDistanceScannerRotZOnlySensor;
    class CControllableEntity;
    class CSpace;
 }
 
-#include <argos3/plugins/robots/spiri/control_interface/ci_spiri_distance_scanner_sensor.h>
-#include <argos3/plugins/robots/spiri/simulator/spiri_distance_scanner_equipped_entity.h>
+#include <argos3/plugins/robots/crazyflie/control_interface/ci_crazyflie_distance_scanner_sensor.h>
+#include <argos3/plugins/robots/crazyflie/simulator/crazyflie_distance_scanner_equipped_entity.h>
 #include <argos3/core/simulator/entity/embodied_entity.h>
 #include <argos3/core/utility/math/rng.h>
 #include <argos3/core/utility/math/ray3.h>
@@ -26,14 +26,14 @@ namespace argos {
 
 namespace argos {
    
-   class CSpiriDistanceScannerRotZOnlySensor : public CSimulatedSensor,
-                                                 public CCI_SpiriDistanceScannerSensor {
+   class CCrazyflieDistanceScannerRotZOnlySensor : public CSimulatedSensor,
+                                                 public CCI_CrazyflieDistanceScannerSensor {
 
    public:
 
-      CSpiriDistanceScannerRotZOnlySensor();
+      CCrazyflieDistanceScannerRotZOnlySensor();
 
-      virtual ~CSpiriDistanceScannerRotZOnlySensor() {}
+      virtual ~CCrazyflieDistanceScannerRotZOnlySensor() {}
 
       virtual void SetRobot(CComposableEntity& c_entity);
 
@@ -82,7 +82,7 @@ namespace argos {
       CRange<Real> m_cNoiseRange;
 
       CSpace& m_cSpace;
-      CSpiriDistanceScannerEquippedEntity* m_pcDistScanEntity;
+      CCrazyflieDistanceScannerEquippedEntity* m_pcDistScanEntity;
       CControllableEntity* m_pcControllableEntity;
       CEmbodiedEntity* m_pcEmbodiedEntity;
       CRadians m_cLastDistScanRotation;

@@ -1,10 +1,10 @@
 /**
- * @file <argos3/plugins/robots/spiri/control_interface/ci_spiri_distance_scanner_actuator.cpp>
+ * @file <argos3/plugins/robots/crazyflie/control_interface/ci_crazyflie_distance_scanner_actuator.cpp>
  *
  * @author Carlo Pinciroli - <ilpincy@gmail.com>
  */
 
-#include "ci_spiri_distance_scanner_actuator.h"
+#include "ci_crazyflie_distance_scanner_actuator.h"
 
 #ifdef ARGOS_WITH_LUA
 #include <argos3/core/wrappers/lua/lua_utility.h>
@@ -22,7 +22,7 @@ namespace argos {
          return luaL_error(pt_lua_state, "robot.distance_scanner.enable() expects no arguments");
       }
       /* Perform action */
-      CLuaUtility::GetDeviceInstance<CCI_SpiriDistanceScannerActuator>(pt_lua_state, "distance_scanner")->Enable();
+      CLuaUtility::GetDeviceInstance<CCI_CrazyflieDistanceScannerActuator>(pt_lua_state, "distance_scanner")->Enable();
       return 0;
    }
 
@@ -32,7 +32,7 @@ namespace argos {
          return luaL_error(pt_lua_state, "robot.distance_scanner.disable() expects no arguments");
       }
       /* Perform action */
-      CLuaUtility::GetDeviceInstance<CCI_SpiriDistanceScannerActuator>(pt_lua_state, "distance_scanner")->Disable();
+      CLuaUtility::GetDeviceInstance<CCI_CrazyflieDistanceScannerActuator>(pt_lua_state, "distance_scanner")->Disable();
       return 0;
    }
 
@@ -43,7 +43,7 @@ namespace argos {
       }
       luaL_checktype(pt_lua_state, 1, LUA_TNUMBER);
       /* Perform action */
-      CLuaUtility::GetDeviceInstance<CCI_SpiriDistanceScannerActuator>(pt_lua_state, "distance_scanner")->SetAngle(CRadians(lua_tonumber(pt_lua_state, 1)));
+      CLuaUtility::GetDeviceInstance<CCI_CrazyflieDistanceScannerActuator>(pt_lua_state, "distance_scanner")->SetAngle(CRadians(lua_tonumber(pt_lua_state, 1)));
       return 0;
    }
 
@@ -54,7 +54,7 @@ namespace argos {
       }
       luaL_checktype(pt_lua_state, 1, LUA_TNUMBER);
       /* Perform action */
-      CLuaUtility::GetDeviceInstance<CCI_SpiriDistanceScannerActuator>(pt_lua_state, "distance_scanner")->SetRPM(lua_tonumber(pt_lua_state, 1));
+      CLuaUtility::GetDeviceInstance<CCI_CrazyflieDistanceScannerActuator>(pt_lua_state, "distance_scanner")->SetRPM(lua_tonumber(pt_lua_state, 1));
       return 0;
    }
 #endif
@@ -63,7 +63,7 @@ namespace argos {
    /****************************************/
 
 #ifdef ARGOS_WITH_LUA
-   void CCI_SpiriDistanceScannerActuator::CreateLuaState(lua_State* pt_lua_state) {
+   void CCI_CrazyflieDistanceScannerActuator::CreateLuaState(lua_State* pt_lua_state) {
       CLuaUtility::OpenRobotStateTable (pt_lua_state, "distance_scanner"                            );
       CLuaUtility::AddToTable          (pt_lua_state, "_instance",       this                       );
       CLuaUtility::AddToTable          (pt_lua_state, "enable",          &LuaDistanceScannerEnable  );

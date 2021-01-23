@@ -1,5 +1,5 @@
 /**
- * @file <argos3/plugins/robots/spiri/control_interface/ci_spiri_distance_scanner_sensor.h>
+ * @file <argos3/plugins/robots/crazyflie/control_interface/ci_crazyflie_distance_scanner_sensor.h>
  *
  * @brief This file provides the definition of the distance scanner sensor.
  *
@@ -42,12 +42,12 @@
  * @author Pierre-Yves Lajoie <lajoie.py@gmail.com>
  */
 
-#ifndef CCI_SPIRI_DISTANCE_SCANNER_SENSOR_H
-#define CCI_SPIRI_DISTANCE_SCANNER_SENSOR_H
+#ifndef CCI_CRAZYFLIE_DISTANCE_SCANNER_SENSOR_H
+#define CCI_CRAZYFLIE_DISTANCE_SCANNER_SENSOR_H
 
 /* To avoid dependency problems when including */
 namespace argos {
-   class CCI_SpiriDistanceScannerSensor;
+   class CCI_CrazyflieDistanceScannerSensor;
 }
 
 #include <argos3/core/control_interface/ci_sensor.h>
@@ -56,7 +56,7 @@ namespace argos {
 
 namespace argos {
 
-   class CCI_SpiriDistanceScannerSensor : public CCI_Sensor {
+   class CCI_CrazyflieDistanceScannerSensor : public CCI_Sensor {
 
    public:
 
@@ -88,14 +88,14 @@ namespace argos {
       /**
        * Constructor
        */
-      CCI_SpiriDistanceScannerSensor() :
+      CCI_CrazyflieDistanceScannerSensor() :
          m_tReadings(4){
       }
 
       /**
        * Destructor
        */
-      virtual ~CCI_SpiriDistanceScannerSensor() {}
+      virtual ~CCI_CrazyflieDistanceScannerSensor() {}
 
       /**
        *
