@@ -23,14 +23,14 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   static const Real HEIGHT         = 0.090f;
+   static const Real HEIGHT         = 0.000f;
    static const Real BODY_HEIGHT    = HEIGHT * 3.0f / 4.0f;
-   static const Real BODY_SIDE      = 0.470f;
+   static const Real BODY_SIDE      = 0.15f;
    static const Real BODY_DIAGONAL  = BODY_SIDE * ::sqrt(2);
    static const Real BODY_RADIUS    = BODY_DIAGONAL / 2.0f;
    static const Real BODY_ELEVATION = HEIGHT - BODY_HEIGHT;
    static const Real RAB_ELEVATION  = (BODY_ELEVATION + BODY_HEIGHT) / 2.0f;
-   static const Real PROXIMITY_SENSOR_RING_ELEVATION       = 0.06f;
+   static const Real PROXIMITY_SENSOR_RING_ELEVATION       = 0.00f;
    static const Real PROXIMITY_SENSOR_RING_RADIUS          = BODY_RADIUS;
    static const CRadians PROXIMITY_SENSOR_RING_START_ANGLE = CRadians((ARGOS_PI / 12.0f) * 0.5f);
    static const Real PROXIMITY_SENSOR_RING_RANGE           = 0.1f;
