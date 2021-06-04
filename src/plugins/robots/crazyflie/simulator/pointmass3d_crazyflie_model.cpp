@@ -14,17 +14,17 @@
 namespace argos {
 
    static const Real     BODY_HEIGHT   = 0.090f;
-   static const Real     BODY_SIDE     = 0.470f;
+   static const Real     BODY_SIDE     = 0.150f;
    static const Real     BODY_DIAGONAL = BODY_SIDE * ::sqrt(2);
    static const Real     BODY_RADIUS   = BODY_DIAGONAL / 2.0f;
-   static const Real     BODY_MASS     = 1.00f;
+   static const Real     BODY_MASS     = 5.0f;
    static const Real     BODY_INERTIA  = 0.01f;
-   static const CVector3 POS_K_P(20.0f, 20.0f, 20.0f);
-   static const CVector3 POS_K_D(10.0f, 10.0f, 10.0f);
-   static const Real     YAW_K_P = 0.5f;
-   static const Real     YAW_K_D = 0.1f;
-   static const CVector3 VEL_K_P(20.0f, 20.0f, 20.0f);
-   static const CVector3 VEL_K_D(10.0f, 10.0f, 10.0f);
+   static const CVector3 POS_K_P(200.0f, 200.0f, 200.0f);
+   static const CVector3 POS_K_D(50.0f, 50.0f, 50.0f);
+   static const Real     YAW_K_P = 1.0f;
+   static const Real     YAW_K_D = 0.0f;
+   static const CVector3 VEL_K_P(100.0f, 100.0f, 100.0f);
+   static const CVector3 VEL_K_D(50.0f, 50.0f, 50.0f);
    static const Real     ROT_K_P = 0.5f;
    static const Real     ROT_K_D = 0.1f;
 
