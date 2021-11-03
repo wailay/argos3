@@ -15,6 +15,7 @@
 #include <argos3/core/utility/datatypes/datatypes.h>
 #include <functional>
 #include <vector>
+#include <limits>
 
 namespace argos {
    
